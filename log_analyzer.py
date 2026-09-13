@@ -1,3 +1,8 @@
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("logfile")
+args = parser.parse_args()
+
 warning_count = 0
 info_count = 0
 error_count = 0
@@ -8,7 +13,7 @@ filter_level = "ERROR"
 filtered_logs = []
 
 
-with open("sample.log", "r") as file:
+with open(args.logfile, "r") as file:
     for line in file:
         total_lines += 1
         if  filter_level in line:
