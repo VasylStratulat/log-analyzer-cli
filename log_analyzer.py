@@ -1,7 +1,13 @@
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("logfile")
+parser.add_argument(
+    "--level",
+    choices=["INFO", "WARNING", "ERROR"],
+    default="ERROR"
+)
 args = parser.parse_args()
+filter_level = args.level
 
 warning_count = 0
 info_count = 0
@@ -9,7 +15,6 @@ error_count = 0
 total_lines = 0
 error_messages = {}
 ip_addresses = {}
-filter_level = "ERROR"
 filtered_logs = []
 
 
