@@ -4,10 +4,15 @@ error_count = 0
 total_lines = 0
 error_messages = {}
 ip_addresses = {}
+filter_level = "ERROR"
+filtered_logs = []
+
+
 with open("sample.log", "r") as file:
     for line in file:
         total_lines += 1
-
+        if  filter_level in line:
+            filtered_logs.append(line.strip())
         if "INFO" in line:
             info_count += 1
 
@@ -30,6 +35,7 @@ with open("sample.log", "r") as file:
             else:
                 ip_addresses[ip_address] = 1
 
+
 print("Log Analysis Report")
 print("-------------------")
 print("Total lines:",total_lines)
@@ -46,6 +52,11 @@ print("")
 print("IP statistics")
 print("-------------")
 print("Unique IP addresses:", len(ip_addresses))
-
 for ip, count in ip_addresses.items():
     print(f"{ip}: {count}")
+
+print("")
+print(f"Filtered logs ({filter_level})")
+print("-------------------")
+for log in filtered_logs:
+    print(log)
