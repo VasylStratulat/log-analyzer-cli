@@ -1,10 +1,16 @@
 import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("logfile")
+parser = argparse.ArgumentParser(
+    description="Analyze log files and display log levels, errors, IP statistics, and filtered entries."
+)
+parser.add_argument(
+    "logfile",
+    help="Path to the log file to analyze"
+)
 parser.add_argument(
     "--level",
     choices=["INFO", "WARNING", "ERROR"],
-    default="ERROR"
+    default="ERROR",
+    help="Filter logs by level (default: ERROR)"
 )
 args = parser.parse_args()
 filter_level = args.level
