@@ -44,6 +44,8 @@ def analyze_log_file(logfile, filter_level):
     try:
         with open(logfile, "r") as file:
             for line in file:
+                if not line.strip():
+                    continue
                 total_lines += 1
                 if  filter_level in line:
                     filtered_logs.append(line.strip())
