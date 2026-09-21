@@ -77,6 +77,6 @@ Unique IP addresses: 3
 
 ## Project Status
 
-The project is under active development.
+Version 1.0.0 is released and ready to use.
 
-Current functionality includes log-level statistics, error analysis, IP statistics, CLI filtering, and basic error handling.
+Current functionality includes log-level statistics, error analysis, IP statistics, CLI filtering, and file error handling.
