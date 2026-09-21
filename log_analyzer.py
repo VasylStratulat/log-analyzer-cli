@@ -1,5 +1,37 @@
 import argparse
 import sys
+def print_error_details(error_messages):
+    print("Error details")
+    print("-------------")
+
+    for error, count in error_messages.items():
+        print(f"{error}: {count}")
+
+def print_ip_statistics(ip_addresses):
+    print("")
+    print("IP statistics")
+    print("-------------")
+    print("Unique IP addresses:", len(ip_addresses))
+
+    for ip, count in ip_addresses.items():
+        print(f"{ip}: {count}")
+
+def print_filtered_logs(filtered_logs, filter_level):
+    print("")
+    print(f"Filtered logs ({filter_level})")
+    print("-------------------")
+
+    for log in filtered_logs:
+        print(log)
+
+def print_summary(total_lines, info_count, warning_count, error_count):
+    print("Log Analysis Report")
+    print("-------------------")
+    print("Total lines:", total_lines)
+    print("INFO:", info_count)
+    print("WARNING:", warning_count)
+    print("ERROR:", error_count)
+
 parser = argparse.ArgumentParser(
     description="Analyze log files and display log levels, errors, IP statistics, and filtered entries."
 )
@@ -15,7 +47,6 @@ parser.add_argument(
 )
 args = parser.parse_args()
 filter_level = args.level
-
 warning_count = 0
 info_count = 0
 error_count = 0
@@ -32,10 +63,8 @@ try:
                 filtered_logs.append(line.strip())
             if "INFO" in line:
                 info_count += 1
-
             if "WARNING" in line:
                 warning_count += 1
-
             if "ERROR" in line:
                 error_count += 1
                 error_message = line.split("ERROR", 1)[1].strip()
@@ -56,27 +85,7 @@ except FileNotFoundError:
     print(f"Error: file '{args.logfile}' not found.")
     sys.exit(1)
 
-print("Log Analysis Report")
-print("-------------------")
-print("Total lines:",total_lines)
-print("INFO:", info_count)
-print("WARNING:", warning_count)
-print("ERROR:", error_count)
-
-print("Error details")
-print("-------------")
-for error, count in error_messages.items():
-    print(f"{error}: {count}")
-
-print("")
-print("IP statistics")
-print("-------------")
-print("Unique IP addresses:", len(ip_addresses))
-for ip, count in ip_addresses.items():
-    print(f"{ip}: {count}")
-
-print("")
-print(f"Filtered logs ({filter_level})")
-print("-------------------")
-for log in filtered_logs:
-    print(log)
+print_summary(total_lines, info_count, warning_count, error_count)
+print_error_details(error_messages)
+print_ip_statistics(ip_addresses)
+print_filtered_logs(filtered_logs, filter_level)
